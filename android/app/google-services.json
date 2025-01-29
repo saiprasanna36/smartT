@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "474782305847",
+    "project_id": "smartt-ef565",
+    "storage_bucket": "smartt-ef565.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:474782305847:android:b2f8749b8bfac4c4e7b9b2",
+        "android_client_info": {
+          "package_name": "com.example.smart_tracker"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBHvu_oZcmAXAqGY2Cx9pOH8WbBIsC-0E0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
