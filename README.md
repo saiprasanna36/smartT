@@ -1,12 +1,11 @@
 # smartT
 
-smartT is an innovative tracking system designed to simplify and enhance tracking processes. Whether you're looking to manage tasks, monitor progress, or streamline your workflow, smartT offers an intuitive solution with powerful features.
+smartT is an app designed to manage products efficiently by tracking their expiry date.
 
 ## Features
-- **Smart Tracking:** Real-time tracking of tasks and activities.
+- **Smart Tracking:** Real-time tracking of expiry dates.
 - **Customizable Dashboards:** Personalize your dashboard to meet your needs.
-- **Efficient Management:** Easily manage your projects and track progress.
-- **Integration:** Seamless integration with other tools and platforms.
+- **Efficient Management:** Easily manage your products and track usage.
 
 ## Installation
 To get started with smartT, follow these steps:
