@@ -58,7 +58,7 @@ class DashboardScreen extends StatelessWidget {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const ViewProductsScreen()),
+                    MaterialPageRoute(builder: (context) => const ViewProducts()),
                   );
                 },
               ),
