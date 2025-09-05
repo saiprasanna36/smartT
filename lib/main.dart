@@ -262,102 +262,321 @@
 //     );
 //   }
 // }
-//
-//
-//
+
+
+
 
 
 
 
 //notim1
+// import 'package:firebase_core/firebase_core.dart';
+// import 'package:flutter/material.dart';
+// import 'package:firebase_messaging/firebase_messaging.dart';
+// import 'home_screen.dart';
+// import 'notification_service.dart';
+//
+// Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+//   // Handles notifications when app is in the background or terminated
+//   print("Background Message: ${message.notification?.title}");
+// }
+//
+// void main() async {
+//   WidgetsFlutterBinding.ensureInitialized();
+//   await Firebase.initializeApp();
+//   await NotificationService.init();
+//
+//   // Register background message handler
+//   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+//
+//   runApp(MyApp());
+//
+//   // Get FCM Token
+//   getToken();
+// }
+//
+// void getToken() async {
+//   String? token = await FirebaseMessaging.instance.getToken();
+//   print("FCM Token: $token");
+// }
+//
+// class MyApp extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       debugShowCheckedModeBanner: false,
+//       home: HomeScreen(),
+//     );
+//   }
+// }
+//
+// class HomeScreen extends StatefulWidget {
+//   @override
+//   _HomeScreenState createState() => _HomeScreenState();
+// }
+//
+// class _HomeScreenState extends State<HomeScreen> {
+//   @override
+//   void initState() {
+//     super.initState();
+//     requestNotificationPermission();
+//     setupFirebaseListeners();
+//   }
+//
+//   // ✅ Request Notification Permissions
+//   void requestNotificationPermission() async {
+//     FirebaseMessaging messaging = FirebaseMessaging.instance;
+//     NotificationSettings settings = await messaging.requestPermission(
+//       alert: true,
+//       badge: true,
+//       sound: true,
+//     );
+//
+//     if (settings.authorizationStatus == AuthorizationStatus.authorized) {
+//       print("✅ Notifications Allowed");
+//     } else {
+//       print("❌ Notifications Denied");
+//     }
+//   }
+//
+//   // ✅ Handle Notifications when App is Open (Foreground)
+//   void setupFirebaseListeners() {
+//     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+//       print("📩 Foreground Notification: ${message.notification?.title}");
+//       showDialog(
+//         context: context,
+//         builder: (context) => AlertDialog(
+//           title: Text(message.notification?.title ?? "No Title"),
+//           content: Text(message.notification?.body ?? "No Body"),
+//         ),
+//       );
+//     });
+//   }
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(title: Text("Firebase Notifications")),
+//       body: Center(child: Text("Listening for Notifications...")),
+//     );
+//   }
+// }
+//
+//
+//
+
+
+//notim2
+// import 'package:firebase_core/firebase_core.dart';
+// import 'package:flutter/material.dart';
+// import 'home_screen.dart';
+// import 'notification_service.dart';
+// import 'package:firebase_messaging/firebase_messaging.dart';
+// import 'package:cloud_firestore/cloud_firestore.dart';
+// import 'package:firebase_auth/firebase_auth.dart';
+// import 'splash_screen.dart';
+// // Function to get the FCM Token
+// void getToken() async {
+//   String? token = await FirebaseMessaging.instance.getToken();
+//   print("FCM Token: $token");
+// }
+//
+// // Function to save the FCM token to Firestore
+// void saveFCMToken() async {
+//   FirebaseMessaging messaging = FirebaseMessaging.instance;
+//   String? token = await messaging.getToken();
+//
+//   if (token != null) {
+//     String uid = FirebaseAuth.instance.currentUser!.uid;
+//     await FirebaseFirestore.instance.collection('users').doc(uid).set({
+//       'fcmToken': token,
+//     }, SetOptions(merge: true));
+//   }
+// }
+//
+// // Firebase Messaging Background Handler (Should be outside other functions)
+// Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+//   await Firebase.initializeApp();
+//   print("Handling a background message: ${message.messageId}");
+// }
+//
+// // Main function
+// void main() async {
+//   WidgetsFlutterBinding.ensureInitialized();
+//   await Firebase.initializeApp();
+//   await NotificationService.init();
+//   getToken();
+//
+//   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+//
+//   runApp(MyApp());
+// }
+//
+// // MyApp class
+// class MyApp extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       debugShowCheckedModeBanner: false,
+//       home: SplashScreen(),
+//     );
+//   }
+// }
+
+
+
+//notim3
+// import 'dart:async';
+// import 'package:firebase_core/firebase_core.dart';
+// import 'package:flutter/material.dart';
+// import 'package:firebase_messaging/firebase_messaging.dart';
+// import 'package:cloud_firestore/cloud_firestore.dart';
+// import 'package:firebase_auth/firebase_auth.dart';
+// import 'home_screen.dart';
+// import 'notification_service.dart';
+// import 'splash_screen.dart';
+// import 'background_service.dart';
+// void main() {
+//   runApp(MyApp());
+//   scheduleDailyExpiryCheck();
+// }
+//
+// void scheduleDailyExpiryCheck() {
+//   Timer.periodic(Duration(hours: 24), (Timer t) {
+//     ExpiryNotificationService().checkExpiryDates();
+//   });
+// }
+// // Firebase Messaging Background Handler (Runs when the app is in background/terminated)
+// Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+//   await Firebase.initializeApp();
+//   print("🔹 Handling a background message: ${message.messageId}");
+// }
+//
+// // Function to get the FCM Token
+// Future<void> getToken() async {
+//   try {
+//     String? token = await FirebaseMessaging.instance.getToken();
+//     print("🔹 FCM Token: $token");
+//   } catch (e) {
+//     print("❌ Error getting FCM Token: $e");
+//   }
+// }
+//
+// // Function to save the FCM Token to Firestore (Only if a user is logged in)
+// Future<void> saveFCMToken() async {
+//   try {
+//     FirebaseAuth auth = FirebaseAuth.instance;
+//     User? user = auth.currentUser;
+//
+//     if (user != null) {
+//       String? token = await FirebaseMessaging.instance.getToken();
+//
+//       if (token != null) {
+//         await FirebaseFirestore.instance.collection('users').doc(user.uid).set(
+//           {'fcmToken': token},
+//           SetOptions(merge: true),
+//         );
+//         print("🔹 FCM Token saved for UID: ${user.uid}");
+//       }
+//     } else {
+//       print("⚠️ No user logged in, skipping FCM Token save.");
+//     }
+//   } catch (e) {
+//     print("❌ Error saving FCM Token: $e");
+//   }
+// }
+//
+// // Main function
+// void main() async {
+//   WidgetsFlutterBinding.ensureInitialized();
+//   await Firebase.initializeApp();
+//   await NotificationService.initialize(); // Initialize Notifications
+//
+//   // Register background messaging handler
+//   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+//
+//   runApp(const MyApp());
+// }
+//
+// // MyApp class
+// class MyApp extends StatelessWidget {
+//   const MyApp({super.key});
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       debugShowCheckedModeBanner: false,
+//       home: SplashScreen(),
+//     );
+//   }
+// }
+
+
+
+
+
+
+
+
+//notim4
+import 'dart:async';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'home_screen.dart';
 import 'notification_service.dart';
+import 'splash_screen.dart';
+import 'background_service.dart';
+import 'expiry_screen.dart';
 
-Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  // Handles notifications when app is in the background or terminated
-  print("Background Message: ${message.notification?.title}");
-}
+// Global navigator key for managing navigation
+final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  await NotificationService.init();
+  await NotificationService.initialize(); // Initialize local notifications if used
 
-  // Register background message handler
-  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+  // Schedule daily expiry check
+  scheduleDailyExpiryCheck();
 
-  runApp(MyApp());
-
-  // Get FCM Token
-  getToken();
+  runApp(const MyApp());
 }
 
-void getToken() async {
-  String? token = await FirebaseMessaging.instance.getToken();
-  print("FCM Token: $token");
+// Function to schedule daily expiry check
+void scheduleDailyExpiryCheck() {
+  Timer.periodic(const Duration(hours: 24), (Timer t) {
+    ExpiryNotificationService().checkExpiryDates();
+  });
 }
 
+// Function to manually navigate to ExpiryScreen
+void openExpiryScreen(String productName) {
+  navigatorKey.currentState?.push(MaterialPageRoute(
+    builder: (context) => ExpiryScreen(productName: productName),
+  ));
+}
+
+// MyApp class
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      navigatorKey: navigatorKey, // Global navigation key
       debugShowCheckedModeBanner: false,
-      home: HomeScreen(),
-    );
-  }
-}
-
-class HomeScreen extends StatefulWidget {
-  @override
-  _HomeScreenState createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
-  @override
-  void initState() {
-    super.initState();
-    requestNotificationPermission();
-    setupFirebaseListeners();
-  }
-
-  // ✅ Request Notification Permissions
-  void requestNotificationPermission() async {
-    FirebaseMessaging messaging = FirebaseMessaging.instance;
-    NotificationSettings settings = await messaging.requestPermission(
-      alert: true,
-      badge: true,
-      sound: true,
-    );
-
-    if (settings.authorizationStatus == AuthorizationStatus.authorized) {
-      print("✅ Notifications Allowed");
-    } else {
-      print("❌ Notifications Denied");
-    }
-  }
-
-  // ✅ Handle Notifications when App is Open (Foreground)
-  void setupFirebaseListeners() {
-    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-      print("📩 Foreground Notification: ${message.notification?.title}");
-      showDialog(
-        context: context,
-        builder: (context) => AlertDialog(
-          title: Text(message.notification?.title ?? "No Title"),
-          content: Text(message.notification?.body ?? "No Body"),
-        ),
-      );
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text("Firebase Notifications")),
-      body: Center(child: Text("Listening for Notifications...")),
+      onGenerateRoute: (settings) {
+        if (settings.name == '/expiry') {
+          final args = settings.arguments as Map<String, dynamic>?;
+          return MaterialPageRoute(
+            builder: (context) => ExpiryScreen(productName: args?['productName'] ?? "Unknown"),
+          );
+        }
+        return null;
+      },
+      home: SplashScreen(),
     );
   }
 }
