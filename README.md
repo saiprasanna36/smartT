@@ -19,31 +19,15 @@ Smart Tracker (SmartT)
  AI/ML: Google ML Kit (OCR + Barcode Scanning)
 
 ⚡ Screenshots:
-<img src="img_1.png" width="250"/>
-<img src="img_2.png" width="250"/>
-<img src="img_3.png" width="250"/>
-
-<img src="img_4.png" width="250"/> 
-<img src="img_5.png" width="250"/> 
-<img src="img_6.png" width="250"/>
-
-[//]: # (![img_1.png]&#40;img_1.png&#41;)
-
-[//]: # (![img_2.png]&#40;img_2.png&#41;)
-
-[//]: # (![img_3.png]&#40;img_3.png&#41;)
-
-[//]: # (![img_4.png]&#40;img_4.png&#41;)
-
-[//]: # (![img_5.png]&#40;img_5.png&#41;)
-
-[//]: # (![img_6.png]&#40;img_6.png&#41;)
-
-[//]: # (![img_7.png]&#40;img_7.png&#41;)
-
-[//]: # (![img_8.png]&#40;img_8.png&#41;)
-
-[//]: # (![img_9.png]&#40;img_9.png&#41;)
+![img_1.png](img_1.png)
+![img_2.png](img_2.png)
+![img_3.png](img_3.png)
+![img_4.png](img_4.png)
+![img_5.png](img_5.png)
+![img_6.png](img_6.png)
+![img_7.png](img_7.png)
+![img_8.png](img_8.png)
+![img_9.png](img_9.png)
 
 ⚡ How It Works
 
